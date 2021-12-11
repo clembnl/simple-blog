@@ -59,6 +59,10 @@ public class CommentaireController {
 			if(contenu != null) {
 				currentCommentaire.setContenu(contenu);;
 			}
+			Long article = commentaire.getArticle();
+			if(article != null) {
+				currentCommentaire.setArticle(article);;
+			}
 			commentaireService.saveCommentaire(currentCommentaire);
 			return currentCommentaire;
 		} else {

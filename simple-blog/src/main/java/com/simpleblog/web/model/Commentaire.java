@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="Commentaires")
+@Table(name="commentaires")
 public class Commentaire {
 	
 	@Id
@@ -26,4 +26,7 @@ public class Commentaire {
 	private Date date;
 	
 	private String contenu;
+	
+	@Column(name="article_id")
+	private Long article;
 }

@@ -67,10 +67,6 @@ public class ArticleController {
 			if(nombreVues != null) {
 				currentArticle.setNombreVues(nombreVues);;
 			}
-			Long commentaire = article.getCommentaire();
-			if(commentaire != null) {
-				currentArticle.setCommentaire(commentaire);;
-			}
 			articleService.saveArticle(currentArticle);
 			return currentArticle;
 		} else {

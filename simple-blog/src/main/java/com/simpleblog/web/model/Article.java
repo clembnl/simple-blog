@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="Articles")
+@Table(name="articles")
 public class Article {
 	
 	@Id
@@ -29,8 +29,6 @@ public class Article {
 	
 	private String contenu;
 	
+	@Column(name="nombre_vues")
 	private Long nombreVues;
-	
-	@Column(name="commentaire_id")
-	private Long commentaire;
 }
