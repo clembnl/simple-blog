@@ -63,10 +63,6 @@ public class ArticleController {
 			if(contenu != null) {
 				currentArticle.setContenu(contenu);;
 			}
-			Long nombreVues = article.getNombreVues();
-			if(nombreVues != null) {
-				currentArticle.setNombreVues(nombreVues);;
-			}
 			articleService.saveArticle(currentArticle);
 			return currentArticle;
 		} else {

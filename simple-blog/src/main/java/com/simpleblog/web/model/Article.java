@@ -28,7 +28,4 @@ public class Article {
 	private Date date;
 	
 	private String contenu;
-	
-	@Column(name="nombre_vues")
-	private Long nombreVues;
 }
