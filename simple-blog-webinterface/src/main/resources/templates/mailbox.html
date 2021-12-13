@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+<title>Simple Blog - Messagerie</title>
+</head>
+<body>
+
+	<header>
+		<h1>Messagerie</h1>
+		
+		<nav>
+			<ul>
+				<li><a th:href="@{/}">Accueil</a></li>
+				<li><a th:href="@{/createMessage}">Contact</a></li>
+				<li><a th:href="@{/messages}">Messagerie</a></li>
+			</ul>
+		</nav>
+	</header>
+	
+	<section>
+	
+		<div>
+			<table>
+				<tr th:if="${messages.empty}">
+					<td colspan="3">Aucun message en base de données</td>
+				</tr>
+				<tr th:each="message: ${messages}">
+					<td><p th:text="${message.utilisateur}"> Id Utilisateur </p>
+						<p th:date="${message.date}"> Date </p>
+						<p th:text="${message.contenu}"> Contenu </p></td>
+				</tr>				
+			</table>
+			
+		</div>
+	</section>
+	
+	
+
+</body>
+</html>
