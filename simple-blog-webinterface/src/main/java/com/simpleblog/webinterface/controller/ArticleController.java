@@ -1,5 +1,10 @@
 package com.simpleblog.webinterface.controller;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +55,10 @@ public class ArticleController {
 	
 	@PostMapping("/saveArticle")
 	public ModelAndView saveArticle(@ModelAttribute Article article) {
+		//article.setUtilisateur((long) 1);
+		//java.util.Date utilDate = new java.util.Date();
+		//java.sql.Date sqlDate = new Date(utilDate.getTime());
+		//article.setDate(sqlDate);
 		service.saveArticle(article);
 		return new ModelAndView("redirect:/");	
 	}

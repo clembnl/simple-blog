@@ -4,11 +4,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+	
 <title>Simple Blog</title>
 </head>
 <body>
 
-	<h1>Ca marche ?</h1>
+	<header>
+		<h1>Mon Blog</h1>
+		
+		<nav>
+			<ul>
+				<li>Accueil</li>
+				<li>Contact</li>
+			</ul>
+		</nav>
+	</header>
+	
+	<section>
+		<aside>
+		</aside>
+	
+		<div>
+			<table>
+				<tr th:if="${articles.empty}">
+					<td colspan="3">Aucun article en base de données</td>
+				</tr>
+				<tr th:each="article: ${articles}">
+					<td><p th:text="${article.titre}"> Titre </p>
+						<p th:text="${article.contenu}"> Contenu </p></td>
+					<td>
+						<a th:href="@{/updateArticle/{id}(id=${article.id})}"><button>Modifier</button></a>
+						<a th:href="@{/deleteArticle/{id}(id=${article.id})}"><button>Supprimer</button></a>						
+					</td>
+				</tr>				
+			</table>
+			
+			<h4><a th:href="@{/createArticle}">Ajouter un nouvel article</a></h4>
+		</div>
+	</section>
+	
+	
 
 </body>
 </html>
