@@ -38,6 +38,7 @@
 						   th:if="${commentaire.article} == ${article.id}"
 						   th:text="${commentaire.contenu}"> Commentaire </p></td>
 					<td>
+						<a th:href="@{/createCommentaire/{id}(id=${article.id})}"><button>Ajouter un commentaire</button></a>
 						<a th:href="@{/updateArticle/{id}(id=${article.id})}"><button>Modifier</button></a>
 						<a th:href="@{/deleteArticle/{id}(id=${article.id})}"><button>Supprimer</button></a>						
 					</td>

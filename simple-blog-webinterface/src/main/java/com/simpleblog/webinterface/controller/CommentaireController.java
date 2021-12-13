@@ -1,6 +1,7 @@
 package com.simpleblog.webinterface.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.simpleblog.webinterface.model.Article;
 import com.simpleblog.webinterface.model.Commentaire;
+import com.simpleblog.webinterface.service.ArticleService;
 import com.simpleblog.webinterface.service.CommentaireService;
 
 import lombok.Data;
@@ -18,13 +21,18 @@ import lombok.Data;
 @Controller
 public class CommentaireController {
 	
-	@Autowired
+	@Resource
 	private CommentaireService service;
 	
-	@GetMapping("/createCommentaire")
-	public String createCommentaire(Model model) {
+	@Resource
+	private ArticleService artService;
+	
+	@GetMapping("/createCommentaire/{article_id}")
+	public String createCommentaire(Model model, @PathVariable("article_id") final int articleId) {
 		Commentaire e = new Commentaire();
+		Article a = artService.getArticle(articleId);
 		model.addAttribute("commentaire", e);
+		model.addAttribute("article", a);
 		return "formNewCommentaire";
 	}
 	
