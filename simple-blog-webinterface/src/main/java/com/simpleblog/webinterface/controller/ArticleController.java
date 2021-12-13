@@ -18,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.simpleblog.webinterface.model.Article;
 import com.simpleblog.webinterface.model.Commentaire;
+import com.simpleblog.webinterface.model.Type;
 import com.simpleblog.webinterface.service.ArticleService;
 import com.simpleblog.webinterface.service.CommentaireService;
+import com.simpleblog.webinterface.service.TypeService;
 
 import lombok.Data;
 
@@ -33,12 +35,17 @@ public class ArticleController {
 	@Resource
 	private CommentaireService comService;
 	
+	@Resource
+	private TypeService tService;
+	
 	@GetMapping("/")
 	public String index(Model model) {
 		Iterable<Article> listArticle = service.getArticles();
 		Iterable<Commentaire> listCommentaire = comService.getCommentaires();
+		Type type = tService.getType(1);
 		model.addAttribute("articles", listArticle);
 		model.addAttribute("commentaires", listCommentaire);
+		model.addAttribute(type);
 		return "index";
 	}
 	
