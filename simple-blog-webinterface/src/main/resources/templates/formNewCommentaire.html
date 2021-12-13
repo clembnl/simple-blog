@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mon Blog - Nouveau Commentaire</title>
+</head>
+<body>
+
+	<header>
+		<h1>Commentaire</h1>
+		
+		<nav>
+			<ul>
+				<li><a th:href="@{/}">Accueil</a></li>
+				<li><a th:href="@{/createCommentaire}">Contact</a></li>
+				<li><a th:href="@{/commentaires}">Commentairerie</a></li>
+			</ul>
+		</nav>
+	</header>
+	
+		<div>
+			<p th:text="${article.id}"> id </p>
+			<p th:text="${article.titre}"> Titre </p>
+			<p th:text="${article.contenu}"> Contenu </p>						
+		</div>	
+
+	<div class="container special">
+
+		<h2 class="h2">Nouveau commentaire</h2>
+		<div>
+			<form method="post"
+				th:action="@{/saveCommentaire}" th:object="${commentaire}">
+				<div class="form-group">
+					<label for="user">Utilisateur</label> 
+					<input
+						type="number" th:field="*{utilisateur}" class="form-control" id="user"
+						placeholder="Saisir l'utilisateur">
+				</div>	
+				<div class="form-group">
+					<label for="date">Date</label> 
+					<input
+						type="date" th:field="*{date}" class="form-control" id="date"
+						placeholder="Saisir la date">
+				</div>								
+				<div class="form-group">
+					<label for="contenu">Contenu</label> 
+					<input
+						type="text" th:field="*{contenu}" class="form-control" id="contenu"
+						placeholder="Saisir le contenu du commentaire">
+				</div>		
+				<div class="form-group">
+					<label for="article">Article id</label> 
+					<input
+						type="number" th:field="*{article}" class="form-control" id="article"
+						placeholder="Saisir l'id article">
+				</div>						
+				
+				<button type="submit">Créer le commentaire</button>
+			</form>
+		</div>
+
+	</div>
+
+</body>
+</html>

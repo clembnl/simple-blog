@@ -1,6 +1,7 @@
 package com.simpleblog.web.controller;
 
 import java.sql.Date;
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,11 @@ public class CommentaireController {
 	@GetMapping("/commentaires")
 	public Iterable<Commentaire> getCommentaires() {
 		return commentaireService.getCommentaires();
+	}
+	
+	@GetMapping("/commentaires/{article_id}")
+	public Collection<Commentaire> getCommentairesByArticle(@PathVariable("article_id") final Long articleId) {
+		return commentaireService.getCommentairesByArticle(articleId);
 	}
 	
 	@PutMapping("/commentaire/{id}")

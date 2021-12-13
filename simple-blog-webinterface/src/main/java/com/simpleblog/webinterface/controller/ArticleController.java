@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.simpleblog.webinterface.model.Article;
+import com.simpleblog.webinterface.model.Commentaire;
 import com.simpleblog.webinterface.service.ArticleService;
+import com.simpleblog.webinterface.service.CommentaireService;
 
 import lombok.Data;
 
@@ -23,13 +27,18 @@ import lombok.Data;
 @Controller
 public class ArticleController {
 	
-	@Autowired
+	@Resource
 	private ArticleService service;
+	
+	@Resource
+	private CommentaireService comService;
 	
 	@GetMapping("/")
 	public String index(Model model) {
 		Iterable<Article> listArticle = service.getArticles();
+		Iterable<Commentaire> listCommentaire = comService.getCommentaires();
 		model.addAttribute("articles", listArticle);
+		model.addAttribute("commentaires", listCommentaire);
 		return "index";
 	}
 	
