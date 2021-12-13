@@ -1,5 +1,6 @@
 package com.simpleblog.web.service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ public class CommentaireService {
 	
 	public Iterable<Commentaire> getCommentaires() {
 		return commentaireRepository.findAll();
+	}
+	
+	public Collection<Commentaire> getCommentairesByArticle(final Long articleId) {
+		return commentaireRepository.findAllCommentaireFromArticle(articleId);
 	}
 	
 	public void deleteCommentaire(final Long id) {

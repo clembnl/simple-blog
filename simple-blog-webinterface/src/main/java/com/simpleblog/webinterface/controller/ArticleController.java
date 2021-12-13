@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.simpleblog.webinterface.model.Article;
+import com.simpleblog.webinterface.model.Commentaire;
 import com.simpleblog.webinterface.service.ArticleService;
+import com.simpleblog.webinterface.service.CommentaireService;
 
 import lombok.Data;
 
@@ -25,11 +27,14 @@ public class ArticleController {
 	
 	@Autowired
 	private ArticleService service;
+	private CommentaireService comService;
 	
 	@GetMapping("/")
 	public String index(Model model) {
 		Iterable<Article> listArticle = service.getArticles();
+		//Iterable<Commentaire> listCommentaire = comService.getCommentaires();
 		model.addAttribute("articles", listArticle);
+		//model.addAttribute("commentaires", listCommentaire);
 		return "index";
 	}
 	

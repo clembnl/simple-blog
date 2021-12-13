@@ -32,7 +32,10 @@
 				</tr>
 				<tr th:each="article: ${articles}">
 					<td><p th:text="${article.titre}"> Titre </p>
-						<p th:text="${article.contenu}"> Contenu </p></td>
+						<p th:text="${article.contenu}"> Contenu </p>
+						<!-- <p th:each="commentaire: ${commentaires}"
+						   th:object="${commentaire}"
+						   th:if="${commentaire.article} == ${article.id}"> Commentaire </p> --></td>
 					<td>
 						<a th:href="@{/updateArticle/{id}(id=${article.id})}"><button>Modifier</button></a>
 						<a th:href="@{/deleteArticle/{id}(id=${article.id})}"><button>Supprimer</button></a>						
