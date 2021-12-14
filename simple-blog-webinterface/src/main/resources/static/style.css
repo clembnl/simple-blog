@@ -1,0 +1,124 @@
+body
+{
+	background-color: #91EAF9;
+	font-family: Georgia, serif;
+}
+
+#corps
+{
+	width: 1200px;
+	margin: auto;
+}
+
+h1
+{
+	text-align: center;
+	color: white;
+}
+
+nav ul
+{
+	display: flex;
+	justify-content: space-around;
+	list-style-type: none;
+	background-color: #51BBD5;
+	border-radius: 5px;
+}
+
+nav ul li
+{
+	padding: 10px;
+}
+
+nav ul li a
+{
+	text-decoration: none;
+	color: black;
+	font-family: Copperplate, fantasy;
+}
+
+a:hover
+{
+	text-decoration: underline;
+	color: marron;
+}
+
+section
+{
+	display: flex;
+}
+
+aside
+{
+	width: 33%;
+	height: 300px;
+	margin-left: 40px;
+	box-shadow: 7px 7px 5px #3F8798;
+	border-radius: 8px;
+	background-color: #A7F0FC;
+	padding: 8px;
+}
+
+table
+{
+	border-collapse: collapse;
+	background-color: #9EEDFB;
+}
+
+td
+{
+	border: 2px solid #4EA0B4;
+	border-radius: 3px;
+	padding: 10px;
+}
+
+#titre
+{
+	text-decoration: underline;
+}
+
+#commentaire
+{
+	font-style: italic;
+}
+
+button
+{
+	background-color: #4395A9;
+	text-decoration: none;
+	border: none;
+	color: white;
+	border-radius: 6px;
+	font-family: Georgia, serif;
+	font-weight: bold;
+	margin: 5px;
+	padding: 8px;
+	font-size: 0.7em;
+}
+
+.button
+{
+	margin-top: 20px;
+	width: 220px;
+	height: 25px;
+	/*margin: auto;*/
+	padding: 12px 7px 5px 15px;
+	background-color: #4395A9;
+	border-radius: 23px;
+}
+
+h4 a
+{
+	text-decoration: none;
+	color: white;
+}
+
+.form-group
+{
+	padding: 5px;
+}
+
+#messagerie
+{
+	margin: auto;
+}

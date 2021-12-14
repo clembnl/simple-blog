@@ -4,41 +4,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-	
+<link rel="stylesheet" href="style.css" />
 <title>Simple Blog - Messagerie</title>
 </head>
 <body>
 
-	<header>
-		<h1>Messagerie</h1>
-		
-		<nav>
-			<ul>
-				<li><a th:href="@{/}">Accueil</a></li>
-				<li><a th:href="@{/createMessage}">Contact</a></li>
-				<li><a th:href="@{/messages}">Messagerie</a></li>
-			</ul>
-		</nav>
-	</header>
+	<div id="corps">
 	
-	<section>
-	
-		<div>
-			<table>
-				<tr th:if="${messages.empty}">
-					<td colspan="3">Aucun message en base de données</td>
-				</tr>
-				<tr th:each="message: ${messages}">
-					<td><p th:text="${message.utilisateur}"> Id Utilisateur </p>
-						<p th:date="${message.date}"> Date </p>
-						<p th:text="${message.contenu}"> Contenu </p></td>
-				</tr>				
-			</table>
+		<header>
+			<h1>Messagerie</h1>
 			
-		</div>
-	</section>
+			<nav>
+				<ul>
+					<li><a th:href="@{/}">Accueil</a></li>
+					<li><a th:href="@{/createMessage}">Contact</a></li>
+					<li><a th:href="@{/messages}">Messagerie</a></li>
+				</ul>
+			</nav>
+		</header>
+		
+		<section>
+		
+			<div id="messagerie">
+				<table>
+					<tr th:if="${messages.empty}">
+						<td colspan="3">Aucun message en base de données</td>
+					</tr>
+					<tr th:each="message: ${messages}">
+						<td><p th:text="${message.utilisateur}"> Id Utilisateur </p>
+							<p th:date="${message.date}"> Date </p>
+							<p th:text="${message.contenu}"> Contenu </p></td>
+					</tr>				
+				</table>
+				
+			</div>
+		</section>
 	
-	
+	</div>
 
 </body>
 </html>

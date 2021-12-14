@@ -4,53 +4,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-	
+<link rel="stylesheet" href="style.css" />
 <title>Simple Blog</title>
 </head>
 <body>
 
-	<header>
-		<h1>Mon Blog</h1>
-		
-		<nav>
-			<ul>
-				<li><a th:href="@{/}">Accueil</a></li>
-				<li><a th:href="@{/createMessage}">Contact</a></li>
-				<li><a th:href="@{/messages}">Messagerie</a></li>
-			</ul>
-		</nav>
-	</header>
-	
-	<section>
-		<aside>
-			<p th:text="${type.presentation}"> Presentation </p>
-		</aside>
-	
-		<div>
-			<table>
-				<tr th:if="${articles.empty}">
-					<td colspan="3">Aucun article en base de données</td>
-				</tr>
-				<tr th:each="article: ${articles}">
-					<td><p th:text="${article.titre}"> Titre </p>
-						<p th:text="${article.contenu}"> Contenu </p>
-						<p th:each="commentaire: ${commentaires}"
-						   th:object="${commentaire}"
-						   th:if="${commentaire.article} == ${article.id}"
-						   th:text="${commentaire.contenu}"> Commentaire </p></td>
-					<td>
-						<a th:href="@{/createCommentaire/{id}(id=${article.id})}"><button>Ajouter un commentaire</button></a>
-						<a th:href="@{/updateArticle/{id}(id=${article.id})}"><button>Modifier</button></a>
-						<a th:href="@{/deleteArticle/{id}(id=${article.id})}"><button>Supprimer</button></a>						
-					</td>
-				</tr>				
-			</table>
+	<div id="corps">
+
+		<header>
+			<h1>MON BLOG</h1>
 			
-			<h4><a th:href="@{/createArticle}">Ajouter un nouvel article</a></h4>
-		</div>
-	</section>
-	
-	
+			<nav>
+				<ul>
+					<li><a th:href="@{/}">Accueil</a></li>
+					<li><a th:href="@{/createMessage}">Contact</a></li>
+					<li><a th:href="@{/messages}">Messagerie</a></li>
+				</ul>
+			</nav>
+		</header>
+		
+		<section>
+		
+			<div>
+				<table>
+					<tr th:if="${articles.empty}">
+						<td colspan="3">Aucun article en base de données</td>
+					</tr>
+					<tr th:each="article: ${articles}">
+						<td><p th:text="${article.titre}"
+								id="titre"> Titre </p>
+							<p th:text="${article.contenu}"> Contenu </p>
+							<p th:each="commentaire: ${commentaires}"
+							   th:object="${commentaire}"
+							   th:if="${commentaire.article} == ${article.id}"
+							   th:text="${commentaire.contenu}"
+							   id="commentaire"> Commentaire </p></td>
+						<td>
+							<a th:href="@{/updateArticle/{id}(id=${article.id})}"><button>Modifier</button></a>
+							<a th:href="@{/deleteArticle/{id}(id=${article.id})}"><button>Supprimer</button></a>
+							<a th:href="@{/createCommentaire/{id}(id=${article.id})}"><button>Ajouter un commentaire</button></a>						
+						</td>
+					</tr>				
+				</table>
+				
+				<h4 class="button"><a th:href="@{/createArticle}">Ajouter un nouvel article</a></h4>
+			</div>
+			
+			<aside>
+				<p th:text="${type.presentation}"> Presentation </p>
+			</aside>		
+		</section>
+		
+	</div>
 
 </body>
 </html>
