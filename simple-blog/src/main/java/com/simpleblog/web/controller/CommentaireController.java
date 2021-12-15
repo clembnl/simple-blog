@@ -31,9 +31,10 @@ public class CommentaireController {
 	}
 	
 	
-	@PostMapping("/commentaire")
-	public Commentaire createCommentaire(@RequestBody Commentaire commentaire) {
-		Optional<Article> optionalArticle = articleService.getArticle(commentaire.getArticle().getId());
+	@PostMapping("/commentaire/{article_id}")
+	public Commentaire createCommentaire(@RequestBody Commentaire commentaire,
+										 @PathVariable("article_id") final int articleId) {
+		Optional<Article> optionalArticle = articleService.getArticle((long) articleId);
 		commentaire.setArticle(optionalArticle.get());
 		return commentaireService.saveCommentaire(commentaire);
 	}

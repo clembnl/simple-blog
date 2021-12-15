@@ -33,9 +33,9 @@ public class Commentaire {
 	
 	private String contenu;
 	
-	//@JsonBackReference to avoid infinite loop
+	@JsonBackReference //to avoid infinite loop
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "article_id")
-	@JsonIgnore //to avoid infinite loop use this one or the other
+	//@JsonIgnore //to avoid infinite loop use this one or the other
 	private Article article;
 }

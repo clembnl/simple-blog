@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,7 +32,7 @@ public class Article {
 	
 	private String contenu;
 	
-	//@JsonManagedReference to avoid infinite loop
+	@JsonManagedReference //to avoid infinite loop
 	@EqualsAndHashCode.Exclude
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article", fetch = FetchType.EAGER)
 	private Set<Commentaire> commentaires;
