@@ -9,11 +9,11 @@ public class Commentaire {
 
 	private Long id;	
 	
-	private Long utilisateur;
+	private String login;
 	
 	private Date date;
 	
 	private String contenu;
 	
-	private Long article;
+	private Article article;
 }

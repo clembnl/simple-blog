@@ -30,29 +30,19 @@ public class CommentaireController {
 	@GetMapping("/createCommentaire/{article_id}")
 	public String createCommentaire(Model model, @PathVariable("article_id") final int articleId) {
 		Commentaire e = new Commentaire();
-		Article a = artService.getArticle(articleId);
+		//Article a = artService.getArticle(articleId);
+		e.setArticle(artService.getArticle(articleId));
+		//a.addCommentaire(e);
 		model.addAttribute("commentaire", e);
-		model.addAttribute("article", a);
 		return "formNewCommentaire";
 	}
 	
-	@GetMapping("/updateCommentaire/{id}")
-	public String updateCommentaire(@PathVariable("id") final int id, Model model) {
-		Commentaire e = service.getCommentaire(id);		
-		model.addAttribute("commentaire", e);	
-		return "formUpdateCommentaire";		
-	}
-	
-	@GetMapping("/deleteCommentaire/{id}")
-	public ModelAndView deleteCommentaire(@PathVariable("id") final int id) {
-		service.deleteCommentaire(id);
-		return new ModelAndView("redirect:/");		
-	}
-	
-	@PostMapping("/saveCommentaire")
-	public ModelAndView saveCommentaire(@ModelAttribute Commentaire commentaire) {
-		service.saveCommentaire(commentaire);
-		return new ModelAndView("redirect:/");	
+	@PostMapping("/saveCommentaire/{article_id}")
+	public ModelAndView saveCommentaire(@ModelAttribute Commentaire commentaire, 
+										@PathVariable("article_id") final int articleId) {
+		service.saveCommentaire(commentaire, articleId);
+		return new ModelAndView("redirect:/");
+		
 	}
 
 }

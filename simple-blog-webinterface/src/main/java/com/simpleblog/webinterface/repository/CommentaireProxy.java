@@ -77,9 +77,9 @@ public class CommentaireProxy {
 		return response.getBody();
 	}
 	
-	public Commentaire createCommentaire(Commentaire e) {
+	public Commentaire createCommentaire(Commentaire e, int articleId) {
 		String baseApiUrl = props.getApiUrl();
-		String createCommentaireUrl = baseApiUrl + "/commentaire";
+		String createCommentaireUrl = baseApiUrl + "/commentaire/" + articleId;
 		
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<Commentaire> request = new HttpEntity<Commentaire>(e);

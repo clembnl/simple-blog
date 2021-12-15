@@ -33,12 +33,12 @@ public class CommentaireService {
 		commentaireProxy.deleteCommentaire(id);
 	}
 	
-	public Commentaire saveCommentaire(Commentaire commentaire) {
+	public Commentaire saveCommentaire(Commentaire commentaire, final int articleId) {
 		Commentaire savedCommentaire;
 
 		if(commentaire.getId() == null) {
 			// If id is null, then it is a new commentaire.
-			savedCommentaire = commentaireProxy.createCommentaire(commentaire);
+			savedCommentaire = commentaireProxy.createCommentaire(commentaire, articleId);
 		} else {
 			savedCommentaire = commentaireProxy.updateCommentaire(commentaire);
 		}

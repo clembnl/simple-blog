@@ -5,8 +5,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.simpleblog.webinterface.model.Article;
-import com.simpleblog.webinterface.model.Commentaire;
-import com.simpleblog.webinterface.model.Type;
 import com.simpleblog.webinterface.service.ArticleService;
-import com.simpleblog.webinterface.service.CommentaireService;
-import com.simpleblog.webinterface.service.TypeService;
 
 import lombok.Data;
 
@@ -29,23 +23,13 @@ import lombok.Data;
 @Controller
 public class ArticleController {
 	
-	@Resource
+	@Autowired
 	private ArticleService service;
-	
-	@Resource
-	private CommentaireService comService;
-	
-	@Resource
-	private TypeService tService;
 	
 	@GetMapping("/")
 	public String index(Model model) {
 		Iterable<Article> listArticle = service.getArticles();
-		Iterable<Commentaire> listCommentaire = comService.getCommentaires();
-		Type type = tService.getType(1);
 		model.addAttribute("articles", listArticle);
-		model.addAttribute("commentaires", listCommentaire);
-		model.addAttribute(type);
 		return "index";
 	}
 	
@@ -71,7 +55,6 @@ public class ArticleController {
 	
 	@PostMapping("/saveArticle")
 	public ModelAndView saveArticle(@ModelAttribute Article article) {
-		//article.setUtilisateur((long) 1);
 		//java.util.Date utilDate = new java.util.Date();
 		//java.sql.Date sqlDate = new Date(utilDate.getTime());
 		//article.setDate(sqlDate);
