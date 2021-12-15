@@ -9,10 +9,11 @@ import com.simpleblog.web.model.Commentaire;
 
 public interface CommentaireRepository extends CrudRepository<Commentaire, Long>{
 	
+	/* How to insert SQL if needed
 	@Query(
 			  value = "SELECT * FROM commentaires c WHERE c.article_id = ?1", 
 			  nativeQuery = true)
 	Collection<Commentaire> findAllCommentaireFromArticle(Long article_id);
-	
+	*/
 
 }

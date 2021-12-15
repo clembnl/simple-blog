@@ -27,19 +27,15 @@ public class Commentaire {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	//@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "utilisateur_id")
-	@JsonIgnore
-	private Utilisateur utilisateur;
+	private String login;
 	
 	private Date date;
 	
 	private String contenu;
 	
-	//@JsonBackReference
+	//@JsonBackReference to avoid infinite loop
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "article_id")
-	@JsonIgnore
+	@JsonIgnore //to avoid infinite loop use this one or the other
 	private Article article;
 }
