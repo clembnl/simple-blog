@@ -11,17 +11,8 @@
 
 	<div id="corps">
 
-		<header>
-			<h1>MON BLOG</h1>
-			
-			<nav>
-				<ul>
-					<li><a th:href="@{/}">Accueil</a></li>
-					<li><a th:href="@{/createMessage}">Contact</a></li>
-					<li><a th:href="@{/messages}">Messagerie</a></li>
-				</ul>
-			</nav>
-		</header>
+
+		<h1>MON BLOG</h1>
 		
 		<section>
 		
@@ -34,11 +25,14 @@
 						<td><p th:text="${article.titre}"
 								id="titre"> Titre </p>
 							<p th:text="${article.contenu}"> Contenu </p>
-							<p th:each="commentaire: ${commentaires}"
-							   th:object="${commentaire}"
-							   th:if="${commentaire.article} == ${article.id}"
-							   th:text="${commentaire.contenu}"
-							   id="commentaire"> Commentaire </p></td>
+							<p th:each="commentaire: ${article.commentaires}"
+							   th:object="${commentaire}">
+							   <span th:text="${commentaire.login}"
+							   		 class="commentaire">Login</span>
+							   <span> : </span>
+							   <span th:text="${commentaire.contenu}"
+							   		  class="commentaire">Contenu</span>
+							</p></td>
 						<td>
 							<a th:href="@{/updateArticle/{id}(id=${article.id})}"><button>Modifier</button></a>
 							<a th:href="@{/deleteArticle/{id}(id=${article.id})}"><button>Supprimer</button></a>
@@ -51,7 +45,10 @@
 			</div>
 			
 			<aside>
-				<p th:text="${type.presentation}"> Presentation </p>
+				<p>Bonjour, je m'appelle Clément Bonal j'ai 24 ans 
+				et je viens de me lancer en tant que nomad digital comme développeur backend (Java) 
+				en freelance afin de parcourir le monde tout en travaillant. 
+				J'en suis actuellement à la 1ère étape de mon voyage à Puerto Escondido au Mexique.</p>
 			</aside>		
 		</section>
 		

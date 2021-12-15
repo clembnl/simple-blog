@@ -14,12 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.simpleblog.web.model.Article;
 import com.simpleblog.web.service.ArticleService;
+import com.simpleblog.web.service.CommentaireService;
 
 @RestController
 public class ArticleController {
 	
-	@Autowired
+	
 	private ArticleService articleService;
+	private CommentaireService commentaireService;
+	
+	@Autowired
+	public ArticleController(ArticleService articleService, CommentaireService commentaireService) {
+		this.articleService = articleService;
+		this.commentaireService = commentaireService;
+	}
 	
 	@PostMapping("/article")
 	public Article createArticle(@RequestBody Article article) {
@@ -50,10 +58,6 @@ public class ArticleController {
 			String titre = article.getTitre();
 			if(titre != null) {
 				currentArticle.setTitre(titre);
-			}
-			Long utilisateur = article.getUtilisateur();
-			if(utilisateur != null) {
-				currentArticle.setUtilisateur(utilisateur);;
 			}
 			Date date = article.getDate();
 			if(date != null) {
