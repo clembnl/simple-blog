@@ -13,17 +13,36 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.simpleblog.web.model.Article;
 import com.simpleblog.web.model.Commentaire;
+import com.simpleblog.web.model.Utilisateur;
+import com.simpleblog.web.service.ArticleService;
 import com.simpleblog.web.service.CommentaireService;
+import com.simpleblog.web.service.UtilisateurService;
 
 @RestController
 public class CommentaireController {
 	
-	@Autowired
+	
 	private CommentaireService commentaireService;
+	private UtilisateurService utilisateurService;
+	private ArticleService articleService;
+	
+	@Autowired
+	public CommentaireController(CommentaireService commentaireService, UtilisateurService utilisateurService, 
+								 ArticleService articleService) {
+		this.commentaireService = commentaireService;
+		this.utilisateurService = utilisateurService;
+		this.articleService = articleService;
+	}
+	
 	
 	@PostMapping("/commentaire")
 	public Commentaire createCommentaire(@RequestBody Commentaire commentaire) {
+		Optional<Utilisateur> optionalUtilisateur = utilisateurService.getUtilisateur(commentaire.getUtilisateur().getId());
+		Optional<Article> optionalArticle = articleService.getArticle(commentaire.getArticle().getId());
+		commentaire.setUtilisateur(optionalUtilisateur.get());
+		commentaire.setArticle(optionalArticle.get());
 		return commentaireService.saveCommentaire(commentaire);
 	}
 	
@@ -49,14 +68,13 @@ public class CommentaireController {
 	
 	@PutMapping("/commentaire/{id}")
 	public Commentaire updateCommentaire(@PathVariable("id") final Long id, @RequestBody Commentaire commentaire) {
+		Optional<Utilisateur> optionalUtilisateur = utilisateurService.getUtilisateur(commentaire.getUtilisateur().getId());
+		Optional<Article> optionalArticle = articleService.getArticle(commentaire.getArticle().getId());
 		Optional<Commentaire> e = commentaireService.getCommentaire(id);
 		if(e.isPresent()) {
 			Commentaire currentCommentaire = e.get();
 			
-			Long utilisateur = commentaire.getUtilisateur();
-			if(utilisateur != null) {
-				currentCommentaire.setUtilisateur(utilisateur);;
-			}
+			commentaire.setUtilisateur(optionalUtilisateur.get());
 			Date date = commentaire.getDate();
 			if(date != null) {
 				currentCommentaire.setDate(date);
@@ -65,10 +83,7 @@ public class CommentaireController {
 			if(contenu != null) {
 				currentCommentaire.setContenu(contenu);;
 			}
-			Long article = commentaire.getArticle();
-			if(article != null) {
-				currentCommentaire.setArticle(article);;
-			}
+			commentaire.setArticle(optionalArticle.get());
 			commentaireService.saveCommentaire(currentCommentaire);
 			return currentCommentaire;
 		} else {

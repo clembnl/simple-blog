@@ -1,13 +1,25 @@
 package com.simpleblog.web.model;
 
-import javax.persistence.Column;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
@@ -20,7 +32,25 @@ public class Utilisateur {
 	
 	private String login;
 	
-	@Column(name="type_id")
-	private Long type;
+	//@JsonBackReference //To avoid infinite loop
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "type_id")
+	@JsonIgnore
+	private Type type;
+	
+	//@JsonManagedReference //To avoid infinite loop
+	@EqualsAndHashCode.Exclude
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "utilisateur", fetch = FetchType.EAGER)
+	private Set<Article> articles;
+	
+	//@JsonManagedReference
+	@EqualsAndHashCode.Exclude
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "utilisateur", fetch = FetchType.EAGER)
+	private Set<Message> messages;
+	
+	//@JsonManagedReference
+	@EqualsAndHashCode.Exclude
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "utilisateur", fetch = FetchType.EAGER)
+	private Set<Commentaire> commentaires;
 
 }

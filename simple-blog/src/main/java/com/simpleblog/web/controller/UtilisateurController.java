@@ -11,17 +11,39 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.simpleblog.web.model.Type;
 import com.simpleblog.web.model.Utilisateur;
+import com.simpleblog.web.service.ArticleService;
+import com.simpleblog.web.service.CommentaireService;
+import com.simpleblog.web.service.MessageService;
+import com.simpleblog.web.service.TypeService;
 import com.simpleblog.web.service.UtilisateurService;
 
 @RestController
 public class UtilisateurController {
 	
-	@Autowired
+	
 	private UtilisateurService utilisateurService;
+	private TypeService typeService;
+	private ArticleService articleService;
+	private CommentaireService commentaireService;
+	private MessageService messageService;
+	
+	@Autowired
+	public UtilisateurController(UtilisateurService utilisateurService, TypeService typeService,
+								 ArticleService articleService, CommentaireService commentaireService,
+								 MessageService messageService) {
+		this.utilisateurService = utilisateurService;
+		this.typeService = typeService;
+		this.articleService = articleService;
+		this.commentaireService = commentaireService;
+		this.messageService = messageService;
+	}
 	
 	@PostMapping("/utilisateur")
 	public Utilisateur createUtilisateur(@RequestBody Utilisateur utilisateur) {
+		Optional<Type> optionalType = typeService.getType(utilisateur.getType().getId());
+		utilisateur.setType(optionalType.get());
 		return utilisateurService.saveUtilisateur(utilisateur);
 	}
 	
@@ -42,6 +64,7 @@ public class UtilisateurController {
 	
 	@PutMapping("/utilisateur/{id}")
 	public Utilisateur updateUtilisateur(@PathVariable("id") final Long id, @RequestBody Utilisateur utilisateur) {
+		Optional<Type> optionalType = typeService.getType(utilisateur.getType().getId());
 		Optional<Utilisateur> e = utilisateurService.getUtilisateur(id);
 		if(e.isPresent()) {
 			Utilisateur currentUtilisateur = e.get();
@@ -50,10 +73,7 @@ public class UtilisateurController {
 			if(login != null) {
 				currentUtilisateur.setLogin(login);
 			}
-			Long type = utilisateur.getType();
-			if(type != null) {
-				currentUtilisateur.setType(type);;
-			}
+			currentUtilisateur.setType(optionalType.get());;
 			utilisateurService.saveUtilisateur(currentUtilisateur);
 			return currentUtilisateur;
 		} else {

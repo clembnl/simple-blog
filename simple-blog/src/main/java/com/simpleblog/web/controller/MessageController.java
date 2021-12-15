@@ -13,16 +13,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simpleblog.web.model.Message;
+import com.simpleblog.web.model.Utilisateur;
 import com.simpleblog.web.service.MessageService;
+import com.simpleblog.web.service.UtilisateurService;
 
 @RestController
 public class MessageController {
 	
-	@Autowired
+	
 	private MessageService messageService;
+	private UtilisateurService utilisateurService;
+	
+	@Autowired
+	public MessageController(MessageService messageService, UtilisateurService utilisateurService) {
+		this.messageService = messageService;
+		this.utilisateurService = utilisateurService;
+	}
 	
 	@PostMapping("/message")
 	public Message createMessage(@RequestBody Message message) {
+		Optional<Utilisateur> optionalUtilisateur = utilisateurService.getUtilisateur(message.getUtilisateur().getId());
+		message.setUtilisateur(optionalUtilisateur.get());
 		return messageService.saveMessage(message);
 	}
 	
@@ -43,14 +54,12 @@ public class MessageController {
 	
 	@PutMapping("/message/{id}")
 	public Message updateMessage(@PathVariable("id") final Long id, @RequestBody Message message) {
+		Optional<Utilisateur> optionalUtilisateur = utilisateurService.getUtilisateur(message.getUtilisateur().getId());
 		Optional<Message> e = messageService.getMessage(id);
 		if(e.isPresent()) {
 			Message currentMessage = e.get();
 			
-			Long utilisateur = message.getUtilisateur();
-			if(utilisateur != null) {
-				currentMessage.setUtilisateur(utilisateur);;
-			}
+			message.setUtilisateur(optionalUtilisateur.get());
 			Date date = message.getDate();
 			if(date != null) {
 				currentMessage.setDate(date);

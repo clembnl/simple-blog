@@ -13,12 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.simpleblog.web.model.Type;
 import com.simpleblog.web.service.TypeService;
+import com.simpleblog.web.service.UtilisateurService;
 
 @RestController
 public class TypeController {
 	
-	@Autowired
+	
 	private TypeService typeService;
+	private UtilisateurService utilisateurService;
+	
+	@Autowired
+	public TypeController(TypeService typeService, UtilisateurService utilisateurService) {
+		this.typeService = typeService;
+		this.utilisateurService = utilisateurService;
+	}
 	
 	@PostMapping("/type")
 	public Type createType(@RequestBody Type type) {

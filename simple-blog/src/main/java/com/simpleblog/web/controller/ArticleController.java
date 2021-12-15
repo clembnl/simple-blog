@@ -13,16 +13,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simpleblog.web.model.Article;
+import com.simpleblog.web.model.Utilisateur;
 import com.simpleblog.web.service.ArticleService;
+import com.simpleblog.web.service.CommentaireService;
+import com.simpleblog.web.service.UtilisateurService;
 
 @RestController
 public class ArticleController {
 	
-	@Autowired
+	
 	private ArticleService articleService;
+	private UtilisateurService utilisateurService;
+	private CommentaireService commentaireService;
+	
+	@Autowired
+	public ArticleController(ArticleService articleService, UtilisateurService utilisateurService, 
+							 CommentaireService commentaireService) {
+		this.articleService = articleService;
+		this.utilisateurService = utilisateurService;
+		this.commentaireService = commentaireService;
+	}
 	
 	@PostMapping("/article")
 	public Article createArticle(@RequestBody Article article) {
+		Optional<Utilisateur> optionalUtilisateur = utilisateurService.getUtilisateur(article.getUtilisateur().getId());
+		article.setUtilisateur(optionalUtilisateur.get());
 		return articleService.saveArticle(article);
 	}
 	
@@ -43,6 +58,7 @@ public class ArticleController {
 	
 	@PutMapping("/article/{id}")
 	public Article updateArticle(@PathVariable("id") final Long id, @RequestBody Article article) {
+		Optional<Utilisateur> optionalUtilisateur = utilisateurService.getUtilisateur(article.getUtilisateur().getId());
 		Optional<Article> e = articleService.getArticle(id);
 		if(e.isPresent()) {
 			Article currentArticle = e.get();
@@ -51,10 +67,7 @@ public class ArticleController {
 			if(titre != null) {
 				currentArticle.setTitre(titre);
 			}
-			Long utilisateur = article.getUtilisateur();
-			if(utilisateur != null) {
-				currentArticle.setUtilisateur(utilisateur);;
-			}
+			article.setUtilisateur(optionalUtilisateur.get());
 			Date date = article.getDate();
 			if(date != null) {
 				currentArticle.setDate(date);
