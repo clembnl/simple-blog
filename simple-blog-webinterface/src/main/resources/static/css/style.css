@@ -16,31 +16,34 @@ h1
 	color: white;
 }
 
-nav ul
+h1 a
 {
-	display: flex;
-	justify-content: space-around;
-	list-style-type: none;
-	background-color: #51BBD5;
-	border-radius: 5px;
+	text-decoration : none;
+	color: white;
+	font-weight: bold;
 }
 
-nav ul li
-{
-	padding: 10px;
-}
-
-nav ul li a
+h1 a:hover
 {
 	text-decoration: none;
-	color: black;
-	font-family: Copperplate, fantasy;
 }
 
-a:hover
+.loginButton
+{
+	margin-top: 20px;
+	width: 185px;
+	height: 25px;
+	margin: auto;
+	padding: 12px 7px 5px 10px;
+	background-color: #4395A9;
+	border-radius: 23px;
+	margin-bottom: 30px;
+}
+
+a:hover button
 {
 	text-decoration: underline;
-	color: marron;
+	color: white;
 }
 
 section
