@@ -28,7 +28,7 @@ h1 a:hover
 	text-decoration: none;
 }
 
-.loginButton
+#loginButton
 {
 	margin-top: 20px;
 	width: 185px;
@@ -40,10 +40,32 @@ h1 a:hover
 	margin-bottom: 30px;
 }
 
+.logButton
+{
+	width: 90px;
+	height: 25px;
+	background-color: #4395A9;
+	border-radius: 23px;
+	color: white;
+	text-decoration: none;
+}
+
+.logButton:hover
+{
+	text-decoration: underline;
+	color: white;
+}
+
 a:hover button
 {
 	text-decoration: underline;
 	color: white;
+}
+
+.space
+{
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 section
