@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css" />
+<title>Simple Blog - Login</title>
+</head>
+<body>
+     <div id="corps">
+     	<div class="container special">
+	      <form method="post" action="/login">
+	        <h2 class="h2">Please login</h2>
+	        <p class="form-group">
+	          <label for="username">Username</label>
+	          <input type="text" id="username" name="username" placeholder="Username" class="form-control">
+	        </p>
+	        <p class="form-group">
+	          <label for="password">Password</label>
+	          <input type="password" id="password" name="password" placeholder="Password" class="form-control">
+	        </p>
+	        <p class="form-group">
+	      	  Remember me?
+	          <input type="checkbox" id="remember-me" name="remember-me" class="form-control">
+	        </p>        
+	        <button type="submit">Login</button>
+	      </form>
+		</div>
+
+		<div class="container special">
+			<form action="/user/registration">
+			    <button type="submit">Sign Up</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

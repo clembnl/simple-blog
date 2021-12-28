@@ -34,6 +34,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().disable() //disable only for non-browser service
 				.authorizeRequests()
 				.antMatchers("/", "index", "/css/*", "/login*", "/logout*", "/user/registration*").permitAll() //Whitelist
+				.antMatchers("/formNewArticle", "/formUpdateArticle").hasRole("ADMIN")
+				.antMatchers("/formNewCommentaire").hasAnyRole("USER", "ADMIN")
 				.anyRequest()
 				.authenticated()
 				.and()
