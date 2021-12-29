@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css" />
+<title>Simple Blog - Registration</title>
+</head>
+<body>
+	<div class="corps">
+	    <div class="container">
+	      <form method="post" action="/user/registration">
+	        <h2 class="h2">Please Register</h2>
+	        <p>
+	          <label for="username">Username</label>
+	          <input type="text" id="username" name="username" placeholder="Username">
+	        </p>
+	        <p>
+	          <label for="password" >Password</label>
+	          <input type="password" id="password" name="password" placeholder="Password">
+	        </p>      
+	        <button type="submit">Sign up</button>
+	      </form>
+		</div>
+		<div class="container">
+			<form action="/login">
+			    <button type="submit">Login</button>
+			</form>
+		</div>		
+	</div>
+</body>
+</html>

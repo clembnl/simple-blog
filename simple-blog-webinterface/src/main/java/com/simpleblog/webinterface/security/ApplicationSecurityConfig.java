@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,6 +18,7 @@ import com.simpleblog.webinterface.auth.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private final PasswordEncoder passwordEncoder;
@@ -33,15 +35,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 				.csrf().disable() //disable only for non-browser service
 				.authorizeRequests()
-				.antMatchers("/", "index", "/css/*", "/login*", "/logout*", "/user/registration*").permitAll() //Whitelist
-				.antMatchers("/formNewArticle", "/formUpdateArticle").hasRole("ADMIN")
-				.antMatchers("/formNewCommentaire").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/", "/css/*", "/login*", "/logout*", "/user/registration*").permitAll() //Whitelist
+				.antMatchers("/admin", "/createArticle", "/updateArticle/*", "/deleteArticle/*", "/saveArticle").hasRole("ADMIN")
+				.antMatchers("/createCommentaire", "/saveCommentaire/*").hasAnyRole("USER", "ADMIN")
 				.anyRequest()
 				.authenticated()
 				.and()
 				.formLogin()
 					.loginPage("/login").permitAll()
-					.defaultSuccessUrl("index", true)
+					.defaultSuccessUrl("/", true)
 				.and()
 				.rememberMe()
 					.tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(1)) //default to 2 weeks
@@ -53,7 +55,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 					.clearAuthentication(true)
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID", "remember-me")
-					.logoutSuccessUrl("/login");
+					.logoutSuccessUrl("/");
 		
 	}
 	
