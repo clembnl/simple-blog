@@ -23,7 +23,10 @@
 	        <p class="form-group">
 	      	  Remember me?
 	          <input type="checkbox" id="remember-me" name="remember-me" class="form-control">
-	        </p>        
+	        </p>   
+			<p>
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			</p>		             
 	        <button type="submit">Login</button>
 	      </form>
 		</div>

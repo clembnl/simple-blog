@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.simpleblog.webinterface.auth.MyUserDetailsService;
@@ -33,7 +34,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-				.csrf().disable() //disable only for non-browser service
+				//.csrf().disable() //disable only for non-browser service
+				.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+				.and()
 				.authorizeRequests()
 				.antMatchers("/", "/css/*", "/login*", "/logout*", "/user/registration*").permitAll() //Whitelist
 				.antMatchers("/admin", "/createArticle", "/updateArticle/*", "/deleteArticle/*", "/saveArticle").hasRole("ADMIN")
