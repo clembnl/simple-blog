@@ -1,11 +1,7 @@
 package com.simpleblog.webinterface.controller;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,33 +29,47 @@ public class ArticleController {
 		return "index";
 	}
 	
+	
+	@GetMapping("/admin")
+	//@PreAuthorize("hasAuthority('ADMIN')")
+	public String admin(Model model) {
+		Iterable<Article> listArticle = service.getArticles();
+		model.addAttribute("articles", listArticle);
+		return "admin";
+	}
+	
+	
 	@GetMapping("/createArticle")
+	//@PreAuthorize("hasAuthority('ADMIN')")
 	public String createArticle(Model model) {
 		Article e = new Article();
 		model.addAttribute("article", e);
 		return "formNewArticle";
 	}
 	
+	
 	@GetMapping("/updateArticle/{id}")
+	//@PreAuthorize("hasAuthority('ADMIN')")
 	public String updateArticle(@PathVariable("id") final int id, Model model) {
 		Article e = service.getArticle(id);		
 		model.addAttribute("article", e);	
 		return "formUpdateArticle";		
 	}
 	
+	
 	@GetMapping("/deleteArticle/{id}")
+	//@PreAuthorize("hasAuthority('ADMIN')")
 	public ModelAndView deleteArticle(@PathVariable("id") final int id) {
 		service.deleteArticle(id);
-		return new ModelAndView("redirect:/");		
+		return new ModelAndView("redirect:/admin");		
 	}
 	
+	
 	@PostMapping("/saveArticle")
+	//@PreAuthorize("hasAuthority('ADMIN')")
 	public ModelAndView saveArticle(@ModelAttribute Article article) {
-		//java.util.Date utilDate = new java.util.Date();
-		//java.sql.Date sqlDate = new Date(utilDate.getTime());
-		//article.setDate(sqlDate);
 		service.saveArticle(article);
-		return new ModelAndView("redirect:/");	
+		return new ModelAndView("redirect:/admin");	
 	}
 
 }

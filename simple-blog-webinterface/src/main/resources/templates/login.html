@@ -4,22 +4,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="css/style.css" />
 <title>Simple Blog - Login</title>
 </head>
 <body>
-   <h1><a th:href="@{/}">MON BLOG</a></h1>
-   <h2>Login :</h2>
-	   <div th:if="${param.error}">
-	       Invalid username and password.
-	   </div>
-	   <div th:if="${param.logout}">
-	       You have been logged out.
-	   </div>
-	   <form th:action="@{/login}" method="post">
-	       <div><label> User Name : <input type="text" name="username"/> </label></div>
-	       <div><label> Password: <input type="password" name="password"/> </label></div>
-	       <div class="space"><input type="submit" value="Sign In" class="logButton"/></div>
-	   </form>
+     <div id="corps">
+     	<div class="container special">
+	      <form method="post" action="/login">
+	        <h2 class="h2">Please login</h2>
+	        <p class="form-group">
+	          <label for="username">Username</label>
+	          <input type="text" id="username" name="username" placeholder="Username" class="form-control">
+	        </p>
+	        <p class="form-group">
+	          <label for="password">Password</label>
+	          <input type="password" id="password" name="password" placeholder="Password" class="form-control">
+	        </p>
+	        <p class="form-group">
+	      	  Remember me?
+	          <input type="checkbox" id="remember-me" name="remember-me" class="form-control">
+	        </p>   
+			<p>
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+			</p>		             
+	        <button type="submit">Login</button>
+	      </form>
+		</div>
+
+		<div class="container special">
+			<form action="/user/registration">
+			    <button type="submit">Sign Up</button>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
